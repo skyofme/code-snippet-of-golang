@@ -1,66 +1,56 @@
-package main
+package basic
 
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"os"
 	"strconv"
-	"strings"
 )
 
-func convertToBin(n int) string {
-	result := ""
+// 需求：将十进制数转换为二进制数
+
+// for 循环讲解
+func convertToBin(n int) (result string) {
+	if (n == 0) {
+		return ""
+	}
 	for ; n > 0; n /= 2 {
+		// 取最低位
 		lsb := n % 2
 		result = strconv.Itoa(lsb) + result
 	}
-	return result
+	return
 }
 
+// 类while循环讲解
 func printFile(filename string) {
 	file, err := os.Open(filename)
 	if err != nil {
 		panic(err)
 	}
+	// 逐行读取
+	scanner := bufio.NewScanner(file)
 
-	printFileContents(file)
-}
-
-func printFileContents(reader io.Reader) {
-	scanner := bufio.NewScanner(reader)
-
+	// while 循环
 	for scanner.Scan() {
 		fmt.Println(scanner.Text())
 	}
 }
 
+// 死循环
 func forever() {
 	for {
-		fmt.Println("abc")
+		fmt.Println("abv")
 	}
 }
 
 func main() {
-	fmt.Println("convertToBin results:")
 	fmt.Println(
-		convertToBin(5),  // 101
-		convertToBin(13), // 1101
-		convertToBin(72387885),
-		convertToBin(0),
+		convertToBin(5),
+		convertToBin(13),
 	)
 
-	fmt.Println("abc.txt contents:")
-	printFile("basic/branch/abc.txt")
+	printFile("abc.txt")
 
-	fmt.Println("printing a string:")
-	s := `abc"d"
-	kkkk
-	123
-
-	p`
-	printFileContents(strings.NewReader(s))
-
-	// Uncomment to see it runs forever
-	// forever()
+	forever()
 }
