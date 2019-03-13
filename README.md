@@ -1,0 +1,1 @@
+# code-snippet-of-golang
